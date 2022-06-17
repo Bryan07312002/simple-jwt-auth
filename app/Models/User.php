@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use App\Models\Retweet;
+use App\Models\Like;
+use App\Models\Post;
+use App\Models\Follower;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -60,5 +64,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
+    public function retweets(){
+        return $this->hasMany(Retweet::class);
+    }
+
+    public function followers(){
+        return $this->hasMany(Follower::class);
     }
 }
